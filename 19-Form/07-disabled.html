@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <title>Document</title>
+
+        <style>
+            /* disabled 속성을 갖는 요소의 배경색상 처리 */
+            input[disabled] {
+                background-color: #eee;
+            }
+        </style>
+    </head>
+    <body>
+        <label for="username"> 입력하기 <input type="checkbox" id="input_enable" /> </label>
+        <input type="text" name="input" id="input" disabled />
+
+        <script type="text/javascript">
+            document.querySelector("#input_enable").addEventListener("change", e => {
+                // disabled => 비활성=true, 활성=false
+                // checked => 체크됨=true, 체크안됨=false
+                document.querySelector("#input").disabled = !e.currentTarget.checked;
+            });
+        </script>
+    </body>
+</html>

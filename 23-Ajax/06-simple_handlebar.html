@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>Document</title>
+            </head>
+            <body>
+                <h1>Simple Handlebar</h1>
+                <a href="#" id="btn">데이터 가져오기</a>
+                <div id="console"></div>
+
+                <script id="entry-template" type="text/x-handlebars-template">
+                    <ul>
+                        <li>학과번호: {{deptno}}</li>
+                        <li>학과이름: {{dname}}</li>
+                        <li>학과위치: {{loc}}</li>
+                    </ul>
+                </script>
+
+                <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+                <script>
+                    document.querySelector('#btn').addEventListener('click', (e) => {
+                        e.preventDefault();
+
+                        (async function () {
+                            let json = null;
+
+                            try {
+                                const response = await axios.get('backend/dept_item.json');
+                                json = response.data;
+                                console.log(json);
+                            } catch (e) {
+                                alert('Ajax 연동 실패');
+                                console.log(e.response.state);
+                                console.log(e.response.data);
+                                return;
+                            }
+
+                            // HTML 구조가 정의된 <script>태그 안의 내용을 가져옴
+                            const source   = document.querySelector('#entry-template').innerHTML;
+                            // 가져온 HTML 구조를 분석 --> 리턴되는 객체는 함수임.
+                            const template = Handlebars.compile(source);
+                            // 리턴받은 함수에게 Ajax로 받아온 JSON을 전달 -> HTML구조와 JSON이 조립됨
+                            const complete = template(json);
+                            // 결과를 출력
+                            document.querySelector('#console').insertAdjacentHTML('beforeend', complete);
+                        })();
+                    });
+                </script>
+            </body>
+        </html>
+    </body>
+</html>

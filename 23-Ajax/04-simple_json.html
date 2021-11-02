@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>Document</title>
+            </head>
+            <body>
+                <h1>Simple Json</h1>
+                <a href="#" id="btn">데이터 가져오기</a>
+                <div id="console"></div>
+
+                <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                <script>
+                    document.querySelector('#btn').addEventListener('click', (e) => {
+                        e.preventDefault();
+
+                        (async function () {
+                            let json = null;
+
+                            try {
+                                const response = await axios.get('backend/dept_item.json');
+                                json = response.data;
+                                console.log(json);
+                            } catch (e) {
+                                alert('Ajax 연동 실패');
+                                console.log(e.response.state);
+                                console.log(e.response.data);
+                                return;
+                            }
+
+                            const ul = document.createElement('ul');
+
+                            const li1 = document.createElement('li');
+                            li1.innerText = '학과번호: ' + json.deptno;
+                            ul.appendChild(li1);
+
+                            const li2 = document.createElement('li');
+                            li2.innerText = '학과이름: ' + json.dname;
+                            ul.appendChild(li2);
+
+                            const li3 = document.createElement('li');
+                            li3.innerText = '학과위치: ' + json.loc;
+                            ul.appendChild(li3);
+
+                            document.querySelector('#console').appendChild(ul);
+                        })();
+                    });
+                </script>
+            </body>
+        </html>
+    </body>
+</html>

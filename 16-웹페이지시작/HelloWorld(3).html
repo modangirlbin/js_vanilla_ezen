@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function start() {
+            // 이 코드가 정상실행되기 위해서는 브라우저가 HTML 코드를 끝까지 해석한 후에 실행되어야 한다.
+            const foo = document.getElementById("foo");
+            foo.innerHTML = "Hello World";
+        }
+
+        // 아래의 구문은 <body>태그의 onload="start()"와 동일한 효과
+        window.addEventListener('load', start);
+    </script>
+</head>
+<body>
+    <h1 id="foo"></h1>
+</body>
+</html>

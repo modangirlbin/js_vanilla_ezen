@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .text-success {
+            color: #0066ff;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Axios</h1>
+    <a href="#" id="btn">load hello.html</a>
+    <div id="console"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.querySelector("#btn").addEventListener("click", e => {
+            e.preventDefault();
+
+            const url = "backend/hello.html";   // 요청할 백엔드의 페이지 주소
+
+            console.group('Ajax');
+            console.log('로딩중... %s', url);
+
+            // HTTP의 4대 접속 방식 GET,POST,PUT,DELETE가 각각 함수로 존재.
+            axios.get(url).then(response => {
+                // Ajax 처리에 성공한 경우(200) 호출될 위치
+                // 성공시 --> 백엔드로부터 전달되는 Data는 data로 접근
+                console.log('Ajax 연동 성공');
+                // 이 값이 백엔드에서 읽어온 내용 --> hello.html의 소스코드
+                console.log(response.data);
+                document.querySelector("#console").insertAdjacentHTML('beforeend', response.data);
+            }).catch(error => {
+                // 에러 발생시
+                console.log('Ajax 연동 실패');
+                console.log(error.response.status);
+                console.log(error.response.data);
+            }).finally(() => {
+                // 성공,실패 여부에 상관 없이 마지막에 실행되는 함수
+                console.log('로딩완료...');
+                console.groupEnd();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8" />
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>Document</title>
+                <style>
+                    table {
+                        width: 100%;
+                        border-top: 1px solid #444444;
+                        border-collapse: collapse;
+                    }
+                    th,
+                    td {
+                        border-bottom: 1px solid #444444;
+                        padding: 10px;
+                        text-align: center;
+                    }
+                </style>
+            </head>
+            <body>
+                <h1>Json List</h1>
+                <a href="#" id="btn">데이터 가져오기</a>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>학과번호</th>
+                            <th>학과명</th>
+                            <th>학과위치</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+
+                <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                <script>
+                    document.querySelector('#btn').addEventListener('click', (e) => {
+                        e.preventDefault();
+
+                        (async function () {
+                            let json = null;
+
+                            try {
+                                const response = await axios.get('backend/dept_list.json');
+                                json = response.data;
+                                console.log(json);
+                            } catch (e) {
+                                alert('Ajax 연동 실패');
+                                console.log(e.response.state);
+                                console.log(e.response.data);
+                                return;
+                            }
+
+                            const tbody = document.querySelector('#tbody');
+
+                            for (const item of json.item) {
+                                const tr = document.createElement('tr');
+
+                                const td1 = document.createElement('td');
+                                td1.innerText = item.deptno;
+                                tr.appendChild(td1);
+
+                                const td2 = document.createElement('td');
+                                td2.innerText = item.dname;
+                                tr.appendChild(td2);
+
+                                const td3 = document.createElement('td');
+                                td3.innerText = item.loc;
+                                tr.appendChild(td3);
+
+                                tbody.appendChild(tr);
+                            }
+                        })();
+                    });
+                </script>
+            </body>
+        </html>
+    </body>
+</html>

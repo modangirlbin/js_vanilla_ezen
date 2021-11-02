@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <title>Document</title>
+    </head>
+    <body>
+        <form id="myform">
+            <label><input type="radio" name="subject" value="html" />HTML</label>
+            <label><input type="radio" name="subject" value="css" />CSS</label>
+            <label><input type="radio" name="subject" value="javascript" />Javascript</label>
+            <button type="submit">입력값 확인</button>
+        </form>
+
+        <hr />
+
+        <p id="console"></p>
+
+        <script type="text/javascript">
+            const radio = document.querySelectorAll("input[name='subject']");
+
+            // 선택 항목이 변경되었을 경우의 이벤트 처리
+            for (let i=0; i<radio.length; i++) {
+                radio[i].addEventListener('change', e => {
+                    document.querySelector("#console").innerHTML = e.currentTarget.value;
+                });
+            }
+
+            // 전송 버튼이 눌러진 경우의 처리
+            document.querySelector("#myform").addEventListener("submit", e => {
+                e.preventDefault();
+
+                for (let i=0; i<radio.length; i++) {
+                    if (radio[i].checked) {
+                        const value = radio[i].value;
+                        document.querySelector("#console").innerHTML = i + "번째 항목 " + value + "이(가) 선택됨";
+
+                        // 라디오버튼은 반복 도중 선택된 항목이 검출되면 이후 항목은 검사하지 않아도 되므로,
+                        // 반복을 강제 중단한다.
+                        break;
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

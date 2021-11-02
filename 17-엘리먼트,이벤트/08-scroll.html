@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .box1 {
+                height: 2000px;
+                background: linear-gradient(0deg, #c9dcfe 0, #223ff6 100%);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container"><div class="box1"></div></div>
+
+        <script>
+            // 스크롤은 대부분 브라우저 레벨에서 수행되므로 window객체에 대해서 이벤트를 정의해야 한다.
+            window.addEventListener('scroll', (e) => {
+                // 스크롤바의 Y좌표
+                // --> window.scrollY (None IE)
+                // --> document.documentElement.scrollTop (IE)
+                const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+                // 웹 브라우저의 창 높이
+                const windowHeight = window.screen.availHeight;
+
+                // HTML 문서의 높이
+                const body = document.body, html = document.documentElement;
+                const documentHeight = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight );
+
+                console.log('스크롤이 발생하고 있음: scrollY=' + scrollY + ", documentHeight=" + documentHeight + ", windowHeight=" + windowHeight);
+
+                if (scrollY + windowHeight >= documentHeight) {
+                    console.log("스크롤이 맨 끝에 도착함");
+                    const container = document.querySelector("#container");
+                    container.innerHTML += '<div class="box1"></div>';
+                }
+            });
+        </script>
+    </body>
+</html>

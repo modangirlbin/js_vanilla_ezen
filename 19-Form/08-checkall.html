@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <title>Document</title>
+    </head>
+    <body>
+        <label>전체선택<input type="checkbox" id="all_check" /> </label>
+        <hr />
+        <label><input type="checkbox" class="hobby" value="soccor" />축구</label>
+        <label><input type="checkbox" class="hobby" value="basketball" />농구</label>
+        <label><input type="checkbox" class="hobby" value="baseball" />야구</label>
+
+        <script type="text/javascript">
+            document.querySelector("#all_check").addEventListener("change", e => {
+                console.log(e.currentTarget.checked);
+                const hobby = document.querySelectorAll(".hobby");
+
+                for (let i=0; i<hobby.length; i++) {
+                    hobby[i].checked = e.currentTarget.checked;
+                }
+            });
+        </script>
+    </body>
+</html>

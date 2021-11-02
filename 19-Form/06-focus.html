@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <title>Document</title>
+    </head>
+    <body>
+        <form id="myform">
+            <h3>주민번호를 입력하세요</h3>
+            <input type="text" name="jumin1" id="jumin1" class='jumin' />
+            -
+            <input type="password" name="jumin2" id="jumin2" class='jumin' />
+        </form>
+
+        <script type="text/javascript">
+            const jumin = document.querySelectorAll(".jumin");
+            
+            for (let i=0; i<jumin.length; i++) {
+                jumin[i].addEventListener("focus", e => {
+                    e.currentTarget.style.backgroundColor = "#06f";
+                    e.currentTarget.style.color = "#fff";
+                });
+
+                jumin[i].addEventListener("blur", e => {
+                    e.currentTarget.style.backgroundColor = "#fff";
+                    e.currentTarget.style.color = "#000";
+                });
+            }
+
+            jumin[0].addEventListener("keyup", e => {
+                const value = e.currentTarget.value;
+
+                if (value.length >= 6) {
+                    // 스스로의 입력값을 6글자만 남겨놓고 제거
+                    e.currentTarget.value = value.substring(0, 6);
+                    jumin[1].focus();
+                }
+            });
+        </script>
+    </body>
+</html>
